@@ -24,8 +24,11 @@ import Service, { helloWorld } from "~/services.server.ts";
 
 export const loader = async ({ request: _request }: LoaderFunctionArgs) => {
   const users = await Service.userRepository.getUsers();
+  const hello = await (await fetch("http://localhost:4000/hello")).text();
+
   const salesPersons = getSalesPersonDirectory();
   return json({
+    hello,
     users,
     serverValue: helloWorld("Remix Turborepo"),
     salesPersons,
@@ -33,7 +36,8 @@ export const loader = async ({ request: _request }: LoaderFunctionArgs) => {
 };
 
 export default function Index() {
-  const { serverValue, users, salesPersons } = useLoaderData<typeof loader>();
+  const { hello, serverValue, users, salesPersons } =
+    useLoaderData<typeof loader>();
   return (
     <main className="relative min-h-screen bg-white sm:flex sm:items-center sm:justify-center">
       <div className="relative sm:pb-16 sm:pt-8">
@@ -178,7 +182,7 @@ export default function Index() {
                 <blockquote className="prose">
                   {users.length > 0 ? (
                     <React.Fragment>
-                      {users.map((user) => (
+                      {users.map((user: any) => (
                         <div key={user.id}>{JSON.stringify(user)}</div>
                       ))}
                     </React.Fragment>
@@ -273,6 +277,27 @@ export default function Index() {
                   <p>
                     {lookUpSalesPersonForZipcode("63", salesPersons)?.email}
                   </p>
+                </blockquote>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>NestJS Backend</CardTitle>
+              <CardDescription>apps/backend</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+                Result of hitting the backend API{" "}
+                <code className="bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold">
+                  GET /hello
+                </code>
+                :
+              </h4>
+              <div className="prose prose-lg mt-4">
+                <blockquote className="prose">
+                  <p>{hello}</p>
                 </blockquote>
               </div>
             </CardContent>
