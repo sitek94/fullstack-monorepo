@@ -1,0 +1,43 @@
+{
+  "name": "@remix-gospel-stack/database",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "clean": "rimraf .turbo node_modules dist",
+    "db:migrate:deploy": "pnpm with-env prisma migrate deploy",
+    "db:migrate:dev": "pnpm with-env prisma migrate dev",
+    "db:push": "pnpm with-env prisma db push",
+    "db:seed": "pnpm with-env tsx src/seed.ts",
+    "db:migrate:force": "pnpm with-env prisma migrate reset --force",
+    "dev": "tsup --watch",
+    "format": "pnpm with-env prisma format",
+    "generate": "pnpm with-env prisma generate",
+    "lint": "eslint ./src --fix",
+    "prebuild": "npm run generate",
+    "predev": "npm run generate",
+    "studio": "pnpm with-env prisma studio",
+    "with-env": "dotenv -e ../../.env --"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.5.2"
+  },
+  "devDependencies": {
+    "@remix-gospel-stack/eslint-config": "workspace:*",
+    "@remix-gospel-stack/tsconfig": "workspace:*",
+    "@types/node": "^20.8.10",
+    "dotenv-cli": "^7.3.0",
+    "prisma": "^5.5.2",
+    "rimraf": "^5.0.5",
+    "tsup": "^7.2.0",
+    "tsx": "^3.14.0",
+    "typescript": "^5.2.2"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "name": "@remix-gospel-stack/nextjs-app",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^14.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@remix-gospel-stack/database": "workspace:*",
+    "@remix-gospel-stack/eslint-config": "workspace:*",
+    "@remix-gospel-stack/tsconfig": "workspace:*",
+    "@types/node": "^20.8.10",
+    "@types/react": "^18.2.34",
+    "@types/react-dom": "^18.2.14",
+    "typescript": "^5.2.2"
+  }
+}
